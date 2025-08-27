@@ -66,3 +66,18 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* 기존 내용 있어도 그대로 두고 아래만 추가 */
+
+@keyframes banana-run {
+  0%   { transform: translateX(-60px); }   /* 살짝 왼쪽 바깥에서 시작 */
+  100% { transform: translateX(100vw); }   /* 오른쪽 화면 끝 너머 */
+}
+
+@keyframes button-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px); /* 위로 살짝 */
+  }
+}

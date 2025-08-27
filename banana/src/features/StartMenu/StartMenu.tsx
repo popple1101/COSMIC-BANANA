@@ -1,30 +1,71 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import RunningBanana from './RunningBanana';
+// ✅ 배경 이미지는 src에서 import로 가져오기 (상대경로 X)
+import bgImg from '../../assets/backgrounds/stage01_bg.png';
 
 export default function StartMenu() {
   const nav = useNavigate();
+
   return (
     <div style={wrap}>
-      <div style={card}>
-        <h1 style={{margin:0,fontSize:36}}>🍌 Banana Escape</h1>
-        <p style={{opacity:.8, margin:'8px 0 20px'}}>주방→우주 탈출 병맛 러너</p>
-        <button onClick={() => nav('/stage/1')} style={btn}>시작하기</button>
-      </div>
+      {/* 배경 */}
+      <img src={bgImg} alt="main background" style={bg} />
+
+      {/* 상단 타이틀 */}
+      <h1 style={title}>COSMIC BANANA</h1>
+
+      {/* 뒤에서 뛰는 바나나 (RunningBanana는 absolute라 wrap 기준으로 배치됨) */}
+      <RunningBanana />
+
+      {/* Start 버튼 */}
+      <button style={btn} onClick={() => nav('/stage/1')}>
+        START GAME
+      </button>
     </div>
   );
 }
 
 const wrap: React.CSSProperties = {
-  minHeight: '100dvh', display: 'grid', placeItems: 'center',
-  background: 'radial-gradient(1000px 600px at 70% -10%, #ffe8a6 0%, #1a1a1a 60%)',
-  color: '#fff'
+  position: 'relative',
+  width: '100vw',     // ✅ 화면 가로 꽉
+  height: '100vh',    // ✅ 화면 세로 꽉
+  overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
 };
-const card: React.CSSProperties = {
-  background: 'rgba(0,0,0,.35)', borderRadius: 16, padding: '32px 28px',
-  boxShadow: '0 10px 30px rgba(0,0,0,.35)', textAlign: 'center', width: 360, maxWidth: '90vw'
+
+const bg: React.CSSProperties = {
+  position: 'absolute',
+  top: 0, left: 0,
+  width: '100%', height: '100%',
+  objectFit: 'cover',
+  zIndex: -2, // 가장 뒤
 };
+
+const title: React.CSSProperties = {
+  fontFamily: '"Pixelify Sans", sans-serif',
+  fontSize: '80px',
+  color: 'yellow',
+  marginTop: '40px',
+  marginBottom: '80px',
+  textShadow: '3px 3px 0 #000',
+  zIndex: 1,  // ✅ 바나나보다 위
+};
+
 const btn: React.CSSProperties = {
-  width: '100%', padding: '12px 16px', borderRadius: 12, border: 'none',
-  background: '#ffd44d', color: '#111', fontWeight: 700, cursor: 'pointer',
-  boxShadow: '0 6px 16px rgba(0,0,0,.25)'
+  fontFamily: '"Pixelify Sans", sans-serif',
+  fontSize: '24px',
+  padding: '14px 36px',
+  borderRadius: '12px',
+  border: 'none',
+  cursor: 'pointer',
+  background: '#ffd44d',
+  color: '#222',
+  fontWeight: 700,
+  boxShadow: '0 6px 16px rgba(0,0,0,.35)',
+  zIndex: 1,
+  animation: 'button-bounce 1.2s ease-in-out infinite',  // ✅ 추가
 };
